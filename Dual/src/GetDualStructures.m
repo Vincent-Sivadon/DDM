@@ -27,8 +27,8 @@ for i=1:nd
     end
 
     % Assembly Operator of subdomain i
-    Abi = DualAssemblyOp(i,nd);
-    Ai  = PrimalAssemblyOp(i,nd);
+    Abi = DualAssemblyOp(i,nd,ni);
+    Ai  = PrimalAssemblyOp(i,nd,ni);
 
     % Primal Schur Complement (subdomain i)
     Spi = Kbb - Kbi* inv(Kii) * Kib;

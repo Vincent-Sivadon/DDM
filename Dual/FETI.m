@@ -1,6 +1,6 @@
 addpath(genpath("src"));
 
-nd = 3;
+nd = 4;
 ne = 3;
 ni = nd-1;
 L  = 1;
@@ -19,7 +19,7 @@ lbda = - tmp*e;
 r   = P' * (-bd - Sd*lbda);     % Residual
 z   = P*wSd*r;                  % Preconditioned Residual
 
-m=10;
+m=100; count=0;
 d = zeros(ni,1,m);
 p = zeros(ni,1,m);
 beta = zeros(m);
@@ -29,6 +29,7 @@ for i=1:m
     if (norm(r)<1e-3)
         break;
     end
+    count = count + 1;
 
     p(:,:,i) = P' * Sd * d(:,:,i);
 
@@ -55,7 +56,8 @@ alpha = inv(G'*G)*G'*(-bd - Sd*lbda);
 % Isolates interior forces
 Ab = [];
 for i=1:nd
-    Ab = [Ab,DualAssemblyOp(i,nd)];
+    Ab = [Ab,DualAssemblyOp(i,nd,ni)];
 end
 lbda_b = Ab'*lbda;
+
 lbda_b
